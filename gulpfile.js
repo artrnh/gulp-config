@@ -61,7 +61,7 @@ gulp.task("images", function () {
 });
 
 gulp.task("symbols", function () {
-  return gulp.src("img/*.svg")
+  return gulp.src("img/icons/*.svg")
   .pipe(svgmin())
   .pipe(svgstore({
     inlineSvg: true
