@@ -9,7 +9,7 @@
 * JS and CSS minification and concatenation
 * Production assembly
 ***
-###Commands:
+### Commands:
 * `gulp style` - SCSS compilation, CSS minification
 * `gulp` or `gulp serve` - Runs server with browser-sync
 * `gulp symbols` - Optimizes svg files and makes svg sprite
