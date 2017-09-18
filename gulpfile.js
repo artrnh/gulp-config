@@ -95,7 +95,7 @@ gulp.task("clean", function () {
 });
 
 gulp.task("build", function (fn) {
-  run("clean", "style", "images", "symbols", "js", "copy", fn);
+  run("clean", "style", "images", "symbols", "concat", "copy", fn);
 });
 
 gulp.task('default', ['serve']);
