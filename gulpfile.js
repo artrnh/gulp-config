@@ -12,6 +12,7 @@ svgstore = require("gulp-svgstore"),
 svgmin = require("gulp-svgmin"),
 useref = require("gulp-useref"),
 uglify = require("gulp-uglify"),
+pump = require("pump"),
 gulpIf = require("gulp-if"),
 cache = require("gulp-cache"),
 del = require('del'),
@@ -70,11 +71,24 @@ gulp.task("symbols", function () {
   .pipe(gulp.dest("img"));
 });
 
+gulp.task('js', function (cb) {
+  pump([
+    gulp.src('js/*.js'),
+    uglify(),
+    rename(function (path) {
+      path.basename += ".min";
+      path.extname = ".js"
+    }),
+    gulp.dest('js')
+  ],
+    cb
+  );
+});
+
 gulp.task('concat', function () {
   return gulp.src('./*.html')
-  .pipe(gulpIf('*.js', uglify()))
-  .pipe(useref())
-  .pipe(gulp.dest('.'))
+    .pipe(useref())
+    .pipe(gulp.dest('.'))
 });
 
 gulp.task("copy", function () {
@@ -95,7 +109,7 @@ gulp.task("clean", function () {
 });
 
 gulp.task("build", function (fn) {
-  run("clean", "style", "images", "symbols", "concat", "copy", fn);
+  run("clean", "style", "images", "symbols", "js", "concat", "copy", fn);
 });
 
 gulp.task('default', ['serve']);
